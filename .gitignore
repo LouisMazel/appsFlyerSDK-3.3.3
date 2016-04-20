@@ -1,0 +1,4 @@
+.idea/**
+test/.idea/**
+test/android/.idea/**
+*.class
