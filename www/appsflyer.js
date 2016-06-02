@@ -32,7 +32,12 @@ if(!window.CustomEvent) {
 	};
 	
 	AppsFlyer.prototype.sendTrackingWithEvent = function(eventName, eventValue) {
-    	cordova.exec(null, null, "AppsFlyerPlugin", "sendTrackingWithEvent", [eventName,eventValue]);
+		var userAgent = window.navigator.userAgent.toLowerCase();
+        if (/iphone|ipad|ipod/.test( userAgent )) {
+			cordova.exec(null, null, "AppsFlyerPlugin", "sendTrackingWithEvent", [eventName,(eventValue.af_revenue).toString()]);
+		}else {
+    	   	cordova.exec(null, null, "AppsFlyerPlugin", "trackEvent", [eventName,eventValue]);
+    	}
 	};
 
 	AppsFlyer.prototype.onInstallConversionDataLoaded = function(conversionData) {
